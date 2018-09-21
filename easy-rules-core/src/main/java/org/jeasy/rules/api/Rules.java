@@ -35,7 +35,7 @@ import java.util.*;
  */
 public class Rules implements Iterable<Rule> {
 
-    private Set<Rule> rules = new TreeSet<>();
+    private Set<Rule> rules = new TreeSet<Rule>();
 
     /**
      * Create a new {@link Rules} object.
@@ -43,7 +43,7 @@ public class Rules implements Iterable<Rule> {
      * @param rules to register
      */
     public Rules(Set<Rule> rules) {
-        this.rules = new TreeSet<>(rules);
+        this.rules = new TreeSet<Rule>(rules);
     }
 
     /**
@@ -72,7 +72,9 @@ public class Rules implements Iterable<Rule> {
      * @param rule to register
      */
     public void register(Object rule) {
-        Objects.requireNonNull(rule);
+        if (rule == null) {
+            throw new IllegalArgumentException("Cannot add null to rules");
+        }
         rules.add(RuleProxy.asRule(rule));
     }
 
@@ -82,7 +84,9 @@ public class Rules implements Iterable<Rule> {
      * @param rule to unregister
      */
     public void unregister(Object rule) {
-        Objects.requireNonNull(rule);
+        if (rule == null) {
+            throw new IllegalArgumentException("Cannot remove null from rules");
+        }
         rules.remove(RuleProxy.asRule(rule));
     }
 
@@ -92,7 +96,9 @@ public class Rules implements Iterable<Rule> {
      * @param ruleName the name of the rule to unregister
      */
     public void unregister(final String ruleName){
-        Objects.requireNonNull(ruleName);
+        if (ruleName == null) {
+            throw new IllegalArgumentException("Cannot remove rule with null name");
+        }
         Rule rule = findRuleByName(ruleName);
         if(rule != null) {
             unregister(rule);

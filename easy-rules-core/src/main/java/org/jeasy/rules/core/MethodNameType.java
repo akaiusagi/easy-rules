@@ -23,34 +23,14 @@
  */
 package org.jeasy.rules.core;
 
-import org.jeasy.rules.api.Action;
-import org.jeasy.rules.api.Condition;
-import org.jeasy.rules.api.Facts;
-
-import java.util.ArrayList;
-import java.util.List;
-
-class DefaultRule extends BasicRule {
-
-    private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<Action>();
-
-    DefaultRule(String name, String description, int priority, Condition condition, List<Action> actions) {
-        super(name, description, priority);
-        this.condition = condition;
-        this.actions = actions;
-    }
-
-    @Override
-    public boolean evaluate(Facts facts) {
-        return condition.evaluate(facts);
-    }
-
-    @Override
-    public void execute(Facts facts) throws Exception {
-        for (Action action : actions) {
-            action.execute(facts);
-        }
-    }
-
+public enum MethodNameType {
+    getName,
+    getDescription,
+    getPriority,
+    compareTo,
+    evaluate,
+    execute,
+    equals,
+    hashCode,
+    toString;
 }
